@@ -1,0 +1,283 @@
+{% extends 'tests/base.html' %}
+{% load static %}
+{% block content %}
+<style>
+@font-face {
+    font-family: 'MyCustomFont2';
+    src: url('{% static "tests/font/AvertaCyrillicBold.otf" %}') format('opentype');
+}
+
+body {
+    font-family: 'MyCustomFont', sans-serif;
+}
+.base {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'MyCustomFont';
+    background: white;
+    min-height: 100vh;
+}
+.content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 16px;
+}
+.top-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 25px;
+    margin-top: 70px;
+}
+.logo-container {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+}
+
+.logo {
+    width: 150px; /* Adjust the logo size */
+    height: auto;
+    margin-bottom: 300px; /* Align to top */
+}
+
+.text-containers {
+    display: inline-block;
+    margin-left: auto;
+    text-align: right;
+}
+.banner {
+    position: relative;
+    background-color: #BA2025;
+    color: white;
+    padding: 50px;
+    border-radius: 8px;
+    height: 409px;
+    width: 678px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Aligns the content to the bottom */
+    margin-right: 20px;
+    text-align: left; /* Ensures text starts from the left */
+    overflow: hidden;
+    z-index: 1;
+}
+
+
+.banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-image: url('{% static 'test_app/images/purple2.png' %}');
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: top right;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    pointer-events: none;
+    transform: scale(3) translate(38%, -14%) rotate(-0.45turn);
+    z-index: -1;
+}
+
+.test-card2 {
+    background: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 40px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 429px;
+    width: 285px;
+    text-align: left;
+}
+
+.test-card2-image-container {
+    align-self: flex-start;
+    width: 100%;
+    text-align: left;
+    margin-bottom: auto;
+}
+
+.test-card2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.test-card {
+    background: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 30px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.test-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.test-card img {
+    align-self: flex-start;
+    width: auto;
+    height: auto;
+    margin-right: auto;
+}
+
+.button {
+    display: inline-block;
+    background: #BA2025;
+    color: white;
+    padding: 24px 1.5rem;
+    border-radius: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25px;
+    letter-spacing: 0.2em;
+    text-align: center;
+}
+.button:hover {
+    background-color: #a51d22;
+}
+
+.button2 {
+    background: white;
+    color: #BA2025;
+    padding: 24px 1.5rem;
+    border-radius: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 2px solid #BA2025;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 25px;
+    letter-spacing: 0.2em;
+    text-align: center;
+}
+
+.button2:hover {
+    background-color: #f8f8f8;
+}
+
+
+@media (max-width: 768px) {
+    .top-row, .text-containers, .grid {
+        display: block;
+    }
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1440px) {
+    .content, .top-row {
+        width: 90%;
+        max-width: 1400px;
+    }
+
+    .banner .title, .test-card h2, .test-card2-text-container h2 {
+        font-size: 36px;
+        overflow-wrap: break-word;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-row {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .logo-container, .text-containers {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .logo {
+        margin: 0 auto 30px; /* Center logo and adjust margin */
+    }
+
+    .banner {
+        width: 90%; /* Set width to a percentage of the screen */
+        margin: 0 auto 30px; /* Center banner and add bottom margin */
+        /*height: auto; !* Make height responsive *!*/
+        padding: 20px; /* Adjust padding */
+        /*position: static; !* Reset position *!*/
+        justify-content: flex-start;
+        height: 504px;
+    }
+
+    .banner h1 {
+        font-size: 22px;
+    }
+
+    .banner::after {
+        background-size: contain; /* Make the background image fully contained within the element */
+        opacity: 1; /* Adjust opacity if necessary */
+        transform: scale(3) translate(3%, 32%);
+    }
+
+    .test-card, .test-card2 {
+        /*width: 90%; !* Set width to a percentage of the screen *!*/
+        width: -webkit-fill-available;
+        margin: 0 auto 30px; /* Center cards and add bottom margin */
+        height: auto; /* Make height responsive */
+        /*align-items: center; !* Align items for flex children *!*/
+    }
+
+    .test-card2:hover, .test-card:hover {
+        transform: none; /* Remove hover effect on mobile */
+    }
+
+    .button, .button2 {
+        width: auto; /* Allow buttons to be width of content */
+        /*margin: 10px auto; !* Center buttons *!*/
+    }
+
+    /* Ensure that all grid items stack on top of each other */
+    .grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>
+<div class="content">
+    <div class="grid">
+        <div class="logo-container">
+            <img src="{% static 'tests/images/logo2.svg' %}" alt="GASYR" class="logo">
+        </div>
+        <div class="test-card">
+            <img src="{% static 'tests/images/map2line1.svg' %}" alt="Interest Map Test">
+            <h2>Тест Python</h2>
+            <a href="{% url 'test_detail' test_id=1 user_data_id=user_data_id %}" class="button">Пройти тест</a>
+        </div>
+        <div class="test-card">
+            <img src="{% static 'tests/images/map2line1.svg' %}" alt="Career Values Test">
+            <h2>Тест Java</h2>
+             <a href="{% url 'test_detail' test_id=2 user_data_id=user_data_id %}" class="button">Пройти тест</a>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}

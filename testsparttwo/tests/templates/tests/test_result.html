@@ -1,0 +1,125 @@
+{% extends 'tests/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'MyCustomFont2';
+        background: white;
+        color: #333;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 50px;
+    }
+    .page-container {
+        width: 80%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 80px;
+        padding: 30px;
+    }
+        .logo-container {
+            flex-shrink: 0;
+            width: 200px;
+        }
+        .logo {
+        width: 80%;
+        height: auto;
+    }
+    .content-container {
+        flex-grow: 1;
+    }
+        .content-container h1 {
+            font-size: 2em;
+            margin: 0 0 20px 0;
+        }
+        .content-container h1 .result {
+            font-family: 'MyCustomFont';
+
+        display: inline-block;
+        font-size: 3em;
+        color: #e01e37;
+    }
+        .content-container p {
+            color: #666;
+            font-size: 1.6em;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+        .button, .button:visited {
+        display: inline-block;
+        background-color: white; /* Start with a white background */
+        color: #e01e37; /* Dark text for contrast */
+        text-decoration: none;
+        padding: 15px 30px;
+        font-size: 1em;
+        border: 2px solid #e01e37; /* Border to hint at the hover color */
+        outline: none;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        font-weight: bold;
+    }
+
+    .button:hover, .button:focus, .button:active {
+        background-color: #e01e37; /* Red background on hover, focus, or active */
+        color: white; /* White text for contrast */
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .button:active {
+        transform: translateY(2px); /* Effect of the button being pressed down */
+    }
+    @media (max-width: 768px) {
+        body {
+            padding-top: 20px;
+            margin-left: 20px;
+        }
+        .page-container {
+            width: 95%;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo-container {
+            display: none; /* Hide the logo on mobile screens */
+        }
+        .content-container {
+            text-align: center; /* Centers inline-block elements like buttons */
+        }
+        .content-container h1 {
+            font-size: 2em;
+        }
+        .content-container p {
+            font-size: 1.3em;
+        }
+        .button {
+            display: block; /* This will make sure the button takes up the full width it can */
+            margin: 15px auto; /* This centers the button horizontally */
+            width: 80%; /* Or any specific width you prefer */
+            max-width: 250px; /* Ensures button does not grow beyond this width */
+            padding: 15px;
+            font-size: 1.3em;
+        }
+    }
+</style>
+{% csrf_token %}
+<div class="page-container">
+    <div class="logo-container">
+        <img src="{% static 'tests/images/logo2.svg' %}" alt="GASYR Foundation School Logo" class="logo">
+    </div>
+    <div class="content-container">
+        <h1><span class="result">Score: {{ score }}</span></h1>
+        <p>{{ test.title }}</p>
+        <a href="{% url 'home' user_data_id=user_data_id %}" class="button">Пройти еще тесты</a>
+        <a href="https://gasyr.com" class="button" style="display: flex; margin-top: 10px; width: 250px">Ознакомиться с
+            GASYR FOUNDATION</a>
+    </div>
+</div>
+
+{% endblock %}
