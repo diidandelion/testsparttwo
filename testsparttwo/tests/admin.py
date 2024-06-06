@@ -1,18 +1,25 @@
 from django.contrib import admin
 from .models import Test, Question, Answer, UserData, TestResult
 from import_export.admin import ExportActionMixin
+from nested_admin import NestedTabularInline, NestedModelAdmin
 
 
-class AnswerInline(admin.TabularInline):
+class AnswerInline(NestedTabularInline):
     model = Answer
+    extra = 4  # Optional: Set the number of extra answer forms to display
 
 
-class QuestionAdmin(admin.ModelAdmin):
+class QuestionInline(NestedTabularInline):
+    model = Question
+    extra = 1  # Optional: Set the number of extra question forms to display
     inlines = [AnswerInline]
 
 
-admin.site.register(Test)
-admin.site.register(Question, QuestionAdmin)
+class TestAdmin(NestedModelAdmin):
+    inlines = [QuestionInline]
+
+
+admin.site.register(Test, TestAdmin)
 
 
 @admin.register(UserData)

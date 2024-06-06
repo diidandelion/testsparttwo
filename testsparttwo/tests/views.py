@@ -49,8 +49,3 @@ def test_detail(request, test_id, user_data_id):
     submit_text = request.session.get('submit_text', 'Submit')
     return render(request, 'tests/test_detail.html',
                   {'test': test, 'questions': questions, 'user_data_id': user_data_id, 'submit_text': submit_text})
-
-
-def test_result(request, test_id, user_data_id):
-    test = get_object_or_404(Test, id=test_id)
-    return render(request, 'tests/test_result.html', {'test': test, 'user_data_id': user_data_id})
